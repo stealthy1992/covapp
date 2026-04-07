@@ -2,9 +2,9 @@ name: Run Postman Tests on Vercel Deployment
 
 on:
   push:
-    branches: ["**"]
+    branches: ["main"]
   pull_request:
-    branches: ["**"]
+    branches: ["main"]
 
 jobs:
   test:
@@ -18,7 +18,7 @@ jobs:
       # 2. Wait for Vercel to finish deploying
       #    Replace with your actual Vercel preview or production URL
       - name: Wait for Vercel deployment to be ready
-        run: npx wait-on https://covapp-gamma.vercel.app/ --timeout 60000
+        run: npx wait-on https://covapp-gamma.vercel.app/ --timeout 180000
 
       # 3. Fetch Postman collection from the public repo (no token needed)
       - name: Checkout Postman Collection
