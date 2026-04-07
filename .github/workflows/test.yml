@@ -1,0 +1,49 @@
+name: Run Postman Tests on Vercel Deployment
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout the React app repo (needed for Actions to run)
+      - name: Checkout Covid App
+        uses: actions/checkout@v4
+
+      # 2. Wait for Vercel to finish deploying
+      #    Replace with your actual Vercel preview or production URL
+      - name: Wait for Vercel deployment to be ready
+        run: npx wait-on https://covapp-gamma.vercel.app/ --timeout 60000
+
+      # 3. Fetch Postman collection from the public repo (no token needed)
+      - name: Checkout Postman Collection
+        uses: actions/checkout@v4
+        with:
+          repository: stealthy1992/api-testing
+          token: ${{ secrets.POSTMAN_REPO_PAT }} 
+          path: postman-tests
+
+      # 4. Install Newman
+      - name: Install Newman
+        run: npm install -g newman newman-reporter-htmlextra
+
+      # 5. Run tests against live Vercel URL
+      - name: Run Postman Tests
+        run: |
+          newman run postman-tests/covid_API.postman_collection.json \
+            --env-var "baseUrl=https://covapp-gamma.vercel.app" \
+            --reporters cli,htmlextra \
+            --reporter-htmlextra-export newman-report.html
+
+      # 6. Upload report — available even if tests fail
+      - name: Upload Newman Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: newman-test-report
+          path: newman-report.html
