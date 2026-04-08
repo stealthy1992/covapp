@@ -1,0 +1,462 @@
+{
+  "info": {
+    "_postman_id": "9f6bfd9f-9320-4b01-88fc-e73019e455b1",
+    "name": "Covid API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "35318117"
+  },
+  "item": [
+    {
+      "name": "Get regions",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('printing the data', () => {",
+              "    const jsonData = pm.response.json();",
+              "    jsonData.data.forEach((item) => {",
+              "        pm.expect(item).to.have.property('name');",
+              "        pm.expect(item).to.have.property('iso');",
+              "        pm.expect(item.name).to.be.not.empty;",
+              "        pm.expect(item.iso).to.be.not.empty;",
+              "        ",
+              "    })",
+              "})"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "apikey",
+          "apikey": [
+            {
+              "key": "value",
+              "value": "{{x-rapidapi-key}}",
+              "type": "string"
+            },
+            {
+              "key": "key",
+              "value": "x-rapidapi-key",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/regions",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "regions"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get provinces or states",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "",
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response body has a 'data' property\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property(\"data\");",
+              "});",
+              "",
+              "pm.test(\"'data' is an array\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData.data).to.be.an(\"array\");",
+              "});",
+              "",
+              "pm.test(\"Each item in 'data' has required fields: iso, name, province, lat, long\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    jsonData.data.forEach(function (item) {",
+              "        pm.expect(item).to.have.property(\"iso\");",
+              "        pm.expect(item).to.have.property(\"name\");",
+              "        pm.expect(item).to.have.property(\"province\");",
+              "        pm.expect(item).to.have.property(\"lat\");",
+              "        pm.expect(item).to.have.property(\"long\");",
+              "    });",
+              "});",
+              "",
+              "pm.test(\"Each item's 'iso' field matches query param value 'TWN'\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    jsonData.data.forEach(function (item) {",
+              "        pm.expect(item.iso).to.eql(\"TWN\");",
+              "    });",
+              "});",
+              "",
+              "pm.test(\"Response time is less than 2000ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+              "});",
+              "",
+              "pm.test(\"Bug: Region exists but province/state is missing in the response\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    // The data array is non-empty, confirming the region exists",
+              "    pm.expect(jsonData.data).to.be.an(\"array\").that.is.not.empty;",
+              "    // However, at least one item has an empty province field, indicating the API fails to return province/state data",
+              "    const missingProvince = jsonData.data.some(function (item) {",
+              "        return item.province === \"\" || item.province === null || item.province === undefined;",
+              "    });",
+              "    pm.expect(missingProvince, \"Expected at least one item to have a missing/empty province field\").to.be.true;",
+              "});",
+              "",
+              "pm.test('A generic test', () => {",
+              "    const response = pm.response.json();",
+              "    console.log(response);",
+              "})",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "apikey",
+          "apikey": [
+            {
+              "key": "value",
+              "value": "{{x-rapidapi-key}}",
+              "type": "string"
+            },
+            {
+              "key": "key",
+              "value": "x-rapidapi-key",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/provinces?iso=TWN",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "provinces"
+          ],
+          "query": [
+            {
+              "key": "iso",
+              "value": "TWN"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get total reports based on date",
+      "request": {
+        "auth": {
+          "type": "apikey",
+          "apikey": [
+            {
+              "key": "value",
+              "value": "{{x-rapidapi-key}}",
+              "type": "string"
+            },
+            {
+              "key": "key",
+              "value": "x-rapidapi-key",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/reports/total?date=2021-02-01",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "reports",
+            "total"
+          ],
+          "query": [
+            {
+              "key": "date",
+              "value": "2021-02-01"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get reports for a particular state for a particular day",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('This will test all the combinations of the response data', () => {",
+              "",
+              "    const jsonData = pm.response.json();",
+              "    if (!jsonData.data || jsonData.data.length === 0) {",
+              "        console.log(\"No data found, skipping further tests.\");",
+              "        return; // stops execution of this test block",
+              "    }",
+              "",
+              "    const data = jsonData.data[0]",
+              "",
+              "    pm.test('This will test the type of values that need to be a number', () => {",
+              "        ",
+              "        pm.expect([",
+              "        data.confirmed,",
+              "        data.deaths,",
+              "        data.recovered,",
+              "        data.confirmed_diff,",
+              "        data.deaths_diff,",
+              "        data.recovered_diff,",
+              "        data.active,",
+              "        data.active_diff,",
+              "        data.fatality_rate,",
+              "",
+              "    ].every(v => typeof v === \"number\")).to.be.true;",
+              "    })",
+              "",
+              "",
+              "",
+              "    pm.test('This will validate the date format', () => {",
+              "        // console.log(jsonData.data)",
+              "        pm.expect(data.date).to.match(/^\\d{4}-\\d{2}-\\d{2}$/);",
+              "    })",
+              "",
+              "    pm.test('This will test if the region object exists in the response', () => {",
+              "        pm.expect(data.region).to.be.an('object');",
+              "        pm.expect(data.region).to.have.property('cities')",
+              "        pm.expect(data.region.cities).to.be.an('array');",
+              "        pm.expect(data.region.cities.length).to.equal(1);",
+              "    })",
+              "",
+              "    pm.test('This will test that the city in the filter has lesser number of deaths and confirmed cases than the state in which the city is located', () => {",
+              "",
+              "        pm.expect(data.deaths).to.be.greaterThan(data.region.cities[0].deaths);",
+              "        pm.expect(data.confirmed).to.be.greaterThan(data.region.cities[0].confirmed);",
+              "        pm.expect(data.last_update).to.be.equal(data.region.cities[0].last_update);",
+              "    })",
+              "",
+              "",
+              "    ",
+              "})"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "apikey",
+          "apikey": [
+            {
+              "key": "value",
+              "value": "{{x-rapidapi-key}}",
+              "type": "string"
+            },
+            {
+              "key": "key",
+              "value": "x-rapidapi-key",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/reports?city_name=Autauga&region_province=Alabama&iso=USA&region_name=US&q=US%20Alabama&date=2020-04-16",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "reports"
+          ],
+          "query": [
+            {
+              "key": "city_name",
+              "value": "Autauga"
+            },
+            {
+              "key": "region_province",
+              "value": "Alabama"
+            },
+            {
+              "key": "iso",
+              "value": "USA"
+            },
+            {
+              "key": "region_name",
+              "value": "US"
+            },
+            {
+              "key": "q",
+              "value": "US%20Alabama"
+            },
+            {
+              "key": "date",
+              "value": "2020-04-16"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get reports for a particular state for a particular day",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "",
+              "pm.test(\"Invalid Scenario: Fatality rate is 0 but deaths are recorded\", function () {",
+              "    const responseJson = pm.response.json();",
+              "    const data = responseJson.data;",
+              "",
+              "    let invalidRecords = [];",
+              "",
+              "    data.forEach(function (record) {",
+              "        if (record.fatality_rate === 0 && record.deaths > 0) {",
+              "            const province = record.region && record.region.province ? record.region.province : \"Unknown\";",
+              "            invalidRecords.push(`Invalid data: ${province} has ${record.deaths} deaths but fatality rate is 0`);",
+              "        }",
+              "    });",
+              "",
+              "    if (invalidRecords.length > 0) {",
+              "        pm.expect.fail(invalidRecords.join(\"; \"));",
+              "    } else {",
+              "        pm.expect(invalidRecords.length).to.eql(0, \"No invalid scenarios found: fatality rate is consistent with recorded deaths\");",
+              "    }",
+              "});",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "apikey",
+          "apikey": [
+            {
+              "key": "value",
+              "value": "{{x-rapidapi-key}}",
+              "type": "string"
+            },
+            {
+              "key": "key",
+              "value": "x-rapidapi-key",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/reports?city_name=Autauga&region_province=Alabama&iso=USA&region_name=US&q=US%20Alabama&date=2020-04-16",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "reports"
+          ],
+          "query": [
+            {
+              "key": "city_name",
+              "value": "Autauga"
+            },
+            {
+              "key": "region_province",
+              "value": "Alabama"
+            },
+            {
+              "key": "iso",
+              "value": "USA"
+            },
+            {
+              "key": "region_name",
+              "value": "US"
+            },
+            {
+              "key": "q",
+              "value": "US%20Alabama"
+            },
+            {
+              "key": "date",
+              "value": "2020-04-16"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "x-rapidapi-key",
+      "value": "4173325277msh9d2c8abd90bdcf8p1cd329jsnc97124ee98b3"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://covid-19-statistics.p.rapidapi.com"
+    }
+  ]
+}
