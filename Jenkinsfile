@@ -2,13 +2,9 @@ pipeline {
     agent any
 
     environment {
-        // Your deployed Vercel URL
-        BASE_URL = 'http://covapp-gamma.vercel.app/'
-
-        // Paths inside Jenkins workspace
-        COLLECTION = 'tests/Covid API.postman_collection.json'
-
-        REPORT_DIR = 'newman-reports'
+        BASE_URL      = 'https://covapp-gamma.vercel.app'
+        COLLECTION    = 'tests/covid_api_postman_collection.json'
+        REPORT_DIR    = 'newman-reports'
     }
 
     stages {
@@ -22,28 +18,43 @@ pipeline {
 
         stage('Install Newman') {
             steps {
-                sh 'npm install -g newman newman-reporter-html'
+                // Local install avoids global PATH issues entirely
+                bat 'npm install newman newman-reporter-htmlextra'
             }
         }
 
         stage('Wait for Vercel Deployment') {
             steps {
-                echo "Waiting for Vercel to deploy latest build..."
-                sleep 120   // Adjust based on your deploy speed
+                echo "Polling Vercel until deployment is live..."
+                // Polls every 15s, gives up after 3 minutes
+                timeout(time: 3, unit: 'MINUTES') {
+                    waitUntil {
+                        script {
+                            def status = bat(
+                                script: "curl -s -o NUL -w \"%%{http_code}\" ${BASE_URL}",
+                                returnStdout: true
+                            ).trim()
+                            echo "Vercel status: ${status}"
+                            return status == '200'
+                        }
+                    }
+                }
             }
         }
 
         stage('Run Postman Collection (Newman)') {
             steps {
-                sh """
-                mkdir -p ${REPORT_DIR}
+                // Create report directory
+                bat "if not exist ${REPORT_DIR} mkdir ${REPORT_DIR}"
 
-                newman run ${COLLECTION} \
-                --env-var base_url=${BASE_URL} \
-                --reporters cli,htmlextra,json \
-                --reporter-html-export ${REPORT_DIR}/report.html \
-                --reporter-json-export ${REPORT_DIR}/report.json \
-                --timeout-request 15000
+                // Use npx so it finds the locally installed newman
+                bat """
+                    npx newman run "${COLLECTION}" ^
+                    --env-var base_url=${BASE_URL} ^
+                    --reporters cli,htmlextra,json ^
+                    --reporter-htmlextra-export ${REPORT_DIR}/report.html ^
+                    --reporter-json-export ${REPORT_DIR}/report.json ^
+                    --timeout-request 15000
                 """
             }
         }
