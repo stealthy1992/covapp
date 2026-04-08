@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    triggers {
+        githubPush()
+    }
+
     environment {
         BASE_URL      = 'https://covapp-gamma.vercel.app'
         COLLECTION    = 'tests/covid_api_postman_collection.json'
@@ -64,6 +68,17 @@ pipeline {
         stage('Archive Reports') {
             steps {
                 archiveArtifacts artifacts: "${REPORT_DIR}/*", fingerprint: true
+
+                // ✅ HTML Publisher — renders report with full CSS/JS
+                publishHTML(target: [
+                    allowMissing         : false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll              : true,
+                    reportDir            : "${REPORT_DIR}",
+                    reportFiles          : 'report.html',
+                    reportName           : 'Newman Test Report',  // Button label in Jenkins UI
+                    reportTitles         : 'API Test Results'
+                ])
             }
         }
     }
