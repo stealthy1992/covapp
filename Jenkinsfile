@@ -30,10 +30,12 @@ pipeline {
                 timeout(time: 3, unit: 'MINUTES') {
                     waitUntil {
                         script {
-                            def status = bat(
+                            def rawOutput = bat(
                                 script: "curl -s -o NUL -w \"%%{http_code}\" ${BASE_URL}",
                                 returnStdout: true
                             ).trim()
+
+                            def status = rawOutput.tokenize('\n').last().trim()
                             echo "Vercel status: ${status}"
                             return status == '200'
                         }
