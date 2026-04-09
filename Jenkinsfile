@@ -65,25 +65,21 @@ pipeline {
             }
         }
 
-        stage('Archive Reports') {
-            steps {
-                archiveArtifacts artifacts: "${REPORT_DIR}/*", fingerprint: true
-
-                // ✅ HTML Publisher — renders report with full CSS/JS
-                publishHTML(target: [
-                    allowMissing         : false,
-                    alwaysLinkToLastBuild: true,
-                    keepAll              : true,
-                    reportDir            : "${REPORT_DIR}",
-                    reportFiles          : 'report.html',
-                    reportName           : 'Newman Test Report',  // Button label in Jenkins UI
-                    reportTitles         : 'API Test Results'
-                ])
-            }
-        }
+    
     }
 
     post {
+        always {
+            publishHTML(target: [
+                allowMissing         : true,
+                alwaysLinkToLastBuild: true,
+                keepAll              : true,
+                reportDir            : "${REPORT_DIR}",
+                reportFiles          : 'report.html',
+                reportName           : 'Newman Test Report',
+                reportTitles         : 'API Test Results'
+            ])
+        }
         success {
             echo "✅ All Postman tests passed!"
         }
