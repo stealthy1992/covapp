@@ -48,8 +48,8 @@ export const ResultContextProvider = ({children}) => {
                     province: province,
                     confirmed: confirmed,
                     active: active,
-                    fatality_rate: fatality_rate,
-                    deaths: deaths
+                    fatality_rate: 0,
+                    deaths: 99999999999
                 }])
             
         })
