@@ -456,11 +456,11 @@
   "variable": [
     {
       "key": "x-rapidapi-key",
-      "value": ""
+      "value": "4173325277msh9d2c8abd90bdcf8p1cd329jsnc97124ee98b3"
     },
     {
       "key": "baseUrl",
-      "value": ""
+      "value": "https://covid-19-statistics.p.rapidapi.com"
     }
   ]
 }
