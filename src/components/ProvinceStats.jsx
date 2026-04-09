@@ -31,7 +31,7 @@ useEffect(() => {
         },
         {
           name: 'Confirmed Cases',
-          Today: provinceStatsByDate.todayConfirmedCases,
+          Today: 1000000000000000,
           Previous: provinceStatsByDate.previousConfirmedCases,
         },
         {
