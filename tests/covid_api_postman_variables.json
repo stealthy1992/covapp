@@ -15,7 +15,7 @@
 			"enabled": true
 		},
 		{
-			"key": "coutryISO",
+			"key": "countryISO",
 			"value": "CHN",
 			"type": "any",
 			"enabled": false
