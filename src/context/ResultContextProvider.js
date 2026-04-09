@@ -30,22 +30,26 @@ export const ResultContextProvider = ({children}) => {
 
         setIsLoading(true)
         setStats([])
-        const response = await fetch(`${baseUrl}/reports?iso=${country}`, {
-            method: 'GET',
-            headers: {
-                'X-RapidAPI-Key': 'd2f0d66c2dmshc841025c94cfa9bp16c747jsnd920a4c65066',
-                'X-RapidAPI-Host': 'covid-19-statistics.p.rapidapi.com'
-            }
-        })
+        let data;
 
-        const data = await response.json()
+        // Commenting out so API call doesn't go //
+
+        // const response = await fetch(`${baseUrl}/reports?iso=${country}`, {
+        //     method: 'GET',
+        //     headers: {
+        //         'X-RapidAPI-Key': 'd2f0d66c2dmshc841025c94cfa9bp16c747jsnd920a4c65066',
+        //         'X-RapidAPI-Host': 'covid-19-statistics.p.rapidapi.com'
+        //     }
+        // })
+
+        // const data = await response.json()
         // console.log(data)
         data?.data?.map(({confirmed, date, active, fatality_rate, deaths, region: {province}}) => {
             
                 setStats(stats => [...stats, {
                     id: Math.random().toString(16).slice(2),
                     date: date,
-                    province: '',
+                    province: province,
                     confirmed: confirmed,
                     active: active,
                     fatality_rate: fatality_rate,
