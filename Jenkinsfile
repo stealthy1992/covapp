@@ -8,6 +8,7 @@ pipeline {
     environment {
         BASE_URL      = 'https://covapp-gamma.vercel.app'
         COLLECTION    = 'tests/covid_api_postman_collection.json'
+        ENVIRONMENT   = 'tests/covid_api_postman_variables.json' 
         REPORT_DIR    = 'newman-reports'
     }
 
@@ -56,6 +57,7 @@ pipeline {
                 // Use npx so it finds the locally installed newman
                 bat """
                     npx newman run "${COLLECTION}" ^
+                    -e "${ENVIRONMENT}" ^
                     --env-var base_url=${BASE_URL} ^
                     --reporters cli,htmlextra,json ^
                     --reporter-htmlextra-export ${REPORT_DIR}/report.html ^
