@@ -45,11 +45,11 @@ export const ResultContextProvider = ({children}) => {
                 setStats(stats => [...stats, {
                     id: Math.random().toString(16).slice(2),
                     date: date,
-                    province: province,
+                    province: '',
                     confirmed: confirmed,
                     active: active,
-                    fatality_rate: 0,
-                    deaths: 99999999999
+                    fatality_rate: fatality_rate,
+                    deaths: deaths
                 }])
             
         })
