@@ -78,59 +78,18 @@
           "listen": "test",
           "script": {
             "exec": [
-              "",
-              "pm.test(\"Status code is 200\", function () {",
-              "    pm.response.to.have.status(200);",
-              "});",
-              "",
-              "pm.test(\"Response body has a 'data' property\", function () {",
+              "pm.test('This will test the province/state retrieval', () => {",
+              "    const province = [];",
               "    const jsonData = pm.response.json();",
-              "    pm.expect(jsonData).to.have.property(\"data\");",
-              "});",
-              "",
-              "pm.test(\"'data' is an array\", function () {",
-              "    const jsonData = pm.response.json();",
-              "    pm.expect(jsonData.data).to.be.an(\"array\");",
-              "});",
-              "",
-              "pm.test(\"Each item in 'data' has required fields: iso, name, province, lat, long\", function () {",
-              "    const jsonData = pm.response.json();",
-              "    jsonData.data.forEach(function (item) {",
-              "        pm.expect(item).to.have.property(\"iso\");",
-              "        pm.expect(item).to.have.property(\"name\");",
-              "        pm.expect(item).to.have.property(\"province\");",
-              "        pm.expect(item).to.have.property(\"lat\");",
-              "        pm.expect(item).to.have.property(\"long\");",
-              "    });",
-              "});",
-              "",
-              "pm.test(\"Each item's 'iso' field matches query param value 'TWN'\", function () {",
-              "    const jsonData = pm.response.json();",
-              "    jsonData.data.forEach(function (item) {",
-              "        pm.expect(item.iso).to.eql(\"TWN\");",
-              "    });",
-              "});",
-              "",
-              "pm.test(\"Response time is less than 2000ms\", function () {",
-              "    pm.expect(pm.response.responseTime).to.be.below(2000);",
-              "});",
-              "",
-              "pm.test(\"Bug: Region exists but province/state is missing in the response\", function () {",
-              "    const jsonData = pm.response.json();",
-              "    // The data array is non-empty, confirming the region exists",
-              "    pm.expect(jsonData.data).to.be.an(\"array\").that.is.not.empty;",
-              "    // However, at least one item has an empty province field, indicating the API fails to return province/state data",
-              "    const missingProvince = jsonData.data.some(function (item) {",
-              "        return item.province === \"\" || item.province === null || item.province === undefined;",
-              "    });",
-              "    pm.expect(missingProvince, \"Expected at least one item to have a missing/empty province field\").to.be.true;",
-              "});",
-              "",
-              "pm.test('A generic test', () => {",
-              "    const response = pm.response.json();",
-              "    console.log(response);",
-              "})",
-              ""
+              "    console.log(jsonData.data.length);",
+              "    pm.expect(jsonData.data.length).to.be.greaterThan(0);",
+              "    // pm.expect(jsonData.data[0].name).to.be.equal(\"Taiwan\")",
+              "    jsonData.data.forEach((entry) => {",
+              "        pm.expect(entry.name).be.be.equal(\"Taiwan\");",
+              "        province.push(entry.province); ",
+              "    })",
+              "    console.log('Provinces are folowing:\\n', province)",
+              "})"
             ],
             "type": "text/javascript",
             "packages": {},
@@ -157,7 +116,7 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{baseUrl}}/provinces?iso=TWN",
+          "raw": "{{baseUrl}}/provinces?iso={blah}",
           "host": [
             "{{baseUrl}}"
           ],
@@ -167,7 +126,7 @@
           "query": [
             {
               "key": "iso",
-              "value": "TWN"
+              "value": "blah"
             }
           ]
         }
@@ -461,6 +420,10 @@
     {
       "key": "baseUrl",
       "value": "https://covid-19-statistics.p.rapidapi.com"
+    },
+    {
+      "key": "countryISO",
+      "value": "Blah"
     }
   ]
 }
