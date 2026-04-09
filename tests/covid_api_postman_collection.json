@@ -223,12 +223,15 @@
               "pm.test('This will test all the combinations of the response data', () => {",
               "",
               "    const jsonData = pm.response.json();",
-              "    if (!jsonData.data || jsonData.data.length === 0) {",
-              "        console.log(\"No data found, skipping further tests.\");",
-              "        return; // stops execution of this test block",
-              "    }",
+              "    console.log(jsonData.data.length);",
+              "    pm.expect(jsonData.data.length).to.not.equal(0);",
+              "    // if (!jsonData.data || jsonData.data.length === 0) {",
+              "    //     console.log(\"No data found, skipping further tests.\");",
+              "    //     return; // stops execution of this test block",
+              "    // }",
+              "    if(jsonData.data.length > 0){",
               "",
-              "    const data = jsonData.data[0]",
+              "        const data = jsonData.data[0]",
               "",
               "    pm.test('This will test the type of values that need to be a number', () => {",
               "        ",
@@ -268,6 +271,7 @@
               "    })",
               "",
               "",
+              "    }",
               "    ",
               "})"
             ],
@@ -452,11 +456,11 @@
   "variable": [
     {
       "key": "x-rapidapi-key",
-      "value": "4173325277msh9d2c8abd90bdcf8p1cd329jsnc97124ee98b3"
+      "value": ""
     },
     {
       "key": "baseUrl",
-      "value": "https://covid-19-statistics.p.rapidapi.com"
+      "value": ""
     }
   ]
 }
