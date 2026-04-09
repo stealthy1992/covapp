@@ -15,13 +15,21 @@
             "exec": [
               "pm.test('printing the data', () => {",
               "    const jsonData = pm.response.json();",
+              "    const isoList = [];",
+              "    const regionList = []",
+              "",
               "    jsonData.data.forEach((item) => {",
               "        pm.expect(item).to.have.property('name');",
               "        pm.expect(item).to.have.property('iso');",
               "        pm.expect(item.name).to.be.not.empty;",
               "        pm.expect(item.iso).to.be.not.empty;",
+              "        isoList.push(item.iso);",
+              "        regionList.push(item.name);",
               "        ",
               "    })",
+              "    pm.collectionVariables.set(\"isoList\", isoList);",
+              "    pm.collectionVariables.set(\"regionList\", regionList);",
+              "",
               "})"
             ],
             "type": "text/javascript",
@@ -78,18 +86,34 @@
           "listen": "test",
           "script": {
             "exec": [
+              "",
               "pm.test('This will test the province/state retrieval', () => {",
               "    const province = [];",
               "    const jsonData = pm.response.json();",
-              "    console.log(jsonData.data.length);",
-              "    pm.expect(jsonData.data.length).to.be.greaterThan(0);",
-              "    // pm.expect(jsonData.data[0].name).to.be.equal(\"Taiwan\")",
-              "    jsonData.data.forEach((entry) => {",
-              "        pm.expect(entry.name).be.be.equal(\"Taiwan\");",
+              "    console.log(jsonData.data[0].iso);",
+              "    let isoList = pm.collectionVariables.get(\"isoList\");",
+              "    pm.test(\"Country ISO is valid\", function () {",
+              "        pm.expect(isoList).to.include(jsonData.data[0].iso);",
+              "        jsonData.data.forEach((entry) => {",
+              "        // pm.expect(entry.name).be.be.equal();",
               "        province.push(entry.province); ",
-              "    })",
-              "    console.log('Provinces are folowing:\\n', province)",
+              "        })",
+              "        console.log('Provinces are folowing:\\n', province)",
+              "    });",
+              "",
+              "    ",
               "})"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
             ],
             "type": "text/javascript",
             "packages": {},
@@ -116,7 +140,7 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{baseUrl}}/provinces?iso={blah}",
+          "raw": "{{baseUrl}}/provinces?iso={{countryISO}}",
           "host": [
             "{{baseUrl}}"
           ],
@@ -126,7 +150,7 @@
           "query": [
             {
               "key": "iso",
-              "value": "blah"
+              "value": "{{countryISO}}"
             }
           ]
         }
@@ -415,15 +439,23 @@
   "variable": [
     {
       "key": "x-rapidapi-key",
-      "value": "4173325277msh9d2c8abd90bdcf8p1cd329jsnc97124ee98b3"
+      "value": ""
     },
     {
       "key": "baseUrl",
-      "value": "https://covid-19-statistics.p.rapidapi.com"
+      "value": ""
     },
     {
       "key": "countryISO",
-      "value": "Blah"
+      "value": ""
+    },
+    {
+      "key": "isoList",
+      "value": ""
+    },
+    {
+      "key": "regionList",
+      "value": ""
     }
   ]
 }
