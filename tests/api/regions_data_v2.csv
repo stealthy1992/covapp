@@ -1,0 +1,90 @@
+region_name,city_name,region_province,iso,date
+US,New York,New York,USA,2020-06-01
+US,Los Angeles,California,USA,2020-09-01
+US,Chicago,Illinois,USA,2020-12-01
+US,Houston,Texas,USA,2021-03-01
+US,Phoenix,Arizona,USA,2021-06-01
+US,San Francisco,California,USA,2021-09-01
+US,Seattle,Washington,USA,2021-12-01
+US,Denver,Colorado,USA,2022-03-01
+US,Miami,Florida,USA,2022-06-01
+US,Austin,Texas,USA,2022-09-01
+US,Boston,Massachusetts,USA,2022-12-01
+US,Nashville,Tennessee,USA,2023-03-01
+US,Portland,Oregon,USA,2023-06-01
+China,Beijing,Beijing,CN,2020-06-01
+China,Shanghai,Shanghai,CN,2020-09-01
+China,Guangzhou,Guangdong,CN,2020-12-01
+China,Shenzhen,Guangdong,CN,2021-03-01
+China,Chengdu,Sichuan,CN,2021-06-01
+China,Hangzhou,Zhejiang,CN,2021-09-01
+China,Wuhan,Hubei,CN,2021-12-01
+China,Nanjing,Jiangsu,CN,2022-03-01
+China,Xi'an,Shaanxi,CN,2022-06-01
+China,Chongqing,Chongqing,CN,2022-09-01
+China,Tianjin,Tianjin,CN,2022-12-01
+China,Suzhou,Jiangsu,CN,2023-03-01
+China,Qingdao,Shandong,CN,2023-06-01
+India,Mumbai,Maharashtra,IN,2020-06-01
+India,Delhi,Delhi,IN,2020-09-01
+India,Bangalore,Karnataka,IN,2020-12-01
+India,Hyderabad,Telangana,IN,2021-03-01
+India,Chennai,Tamil Nadu,IN,2021-06-01
+India,Kolkata,West Bengal,IN,2021-09-01
+India,Pune,Maharashtra,IN,2021-12-01
+India,Ahmedabad,Gujarat,IN,2022-03-01
+India,Jaipur,Rajasthan,IN,2022-06-01
+India,Surat,Gujarat,IN,2022-09-01
+India,Lucknow,Uttar Pradesh,IN,2022-12-01
+India,Chandigarh,Punjab,IN,2023-03-01
+India,Kochi,Kerala,IN,2023-06-01
+Brazil,São Paulo,São Paulo,BR,2020-06-01
+Brazil,Rio de Janeiro,Rio de Janeiro,BR,2020-09-01
+Brazil,Brasília,Federal District,BR,2020-12-01
+Brazil,Salvador,Bahia,BR,2021-03-01
+Brazil,Fortaleza,Ceará,BR,2021-06-01
+Brazil,Belo Horizonte,Minas Gerais,BR,2021-09-01
+Brazil,Manaus,Amazonas,BR,2021-12-01
+Brazil,Curitiba,Paraná,BR,2022-03-01
+Brazil,Recife,Pernambuco,BR,2022-06-01
+Brazil,Porto Alegre,Rio Grande do Sul,BR,2022-09-01
+Brazil,Belém,Pará,BR,2022-12-01
+Brazil,Goiânia,Goiás,BR,2023-03-01
+Brazil,Florianópolis,Santa Catarina,BR,2023-06-01
+France,Paris,Île-de-France,FR,2020-06-01
+France,Marseille,Provence-Alpes-Côte d'Azur,FR,2020-09-01
+France,Lyon,Auvergne-Rhône-Alpes,FR,2020-12-01
+France,Toulouse,Occitanie,FR,2021-03-01
+France,Nice,Provence-Alpes-Côte d'Azur,FR,2021-06-01
+France,Nantes,Pays de la Loire,FR,2021-09-01
+France,Strasbourg,Grand Est,FR,2021-12-01
+France,Montpellier,Occitanie,FR,2022-03-01
+France,Bordeaux,Nouvelle-Aquitaine,FR,2022-06-01
+France,Lille,Hauts-de-France,FR,2022-09-01
+France,Rennes,Brittany,FR,2022-12-01
+France,Grenoble,Auvergne-Rhône-Alpes,FR,2023-03-01
+France,Dijon,Bourgogne-Franche-Comté,FR,2023-06-01
+Germany,Berlin,Berlin,DE,2020-06-01
+Germany,Munich,Bavaria,DE,2020-09-01
+Germany,Hamburg,Hamburg,DE,2020-12-01
+Germany,Frankfurt,Hesse,DE,2021-06-01
+Germany,Cologne,North Rhine-Westphalia,DE,2022-03-01
+Germany,Stuttgart,Baden-Württemberg,DE,2023-06-01
+Japan,Tokyo,Tokyo,JP,2020-06-01
+Japan,Osaka,Osaka,JP,2020-12-01
+Japan,Kyoto,Kyoto,JP,2021-06-01
+Japan,Hiroshima,Hiroshima,JP,2022-03-01
+Japan,Fukuoka,Fukuoka,JP,2022-09-01
+Japan,Nagoya,Aichi,JP,2023-06-01
+Australia,Sydney,New South Wales,AU,2020-06-01
+Australia,Melbourne,Victoria,AU,2021-03-01
+Australia,Brisbane,Queensland,AU,2021-12-01
+Australia,Perth,Western Australia,AU,2022-06-01
+Australia,Adelaide,South Australia,AU,2023-01-01
+Australia,Canberra,Australian Capital Territory,AU,2023-06-01
+Canada,Toronto,Ontario,CA,2020-09-01
+Canada,Vancouver,British Columbia,CA,2021-06-01
+Canada,Montreal,Quebec,CA,2022-03-01
+Canada,Calgary,Alberta,CA,2022-09-01
+Canada,Ottawa,Ontario,CA,2023-06-01
+Canada,Edmonton,Alberta,CA,2023-03-01

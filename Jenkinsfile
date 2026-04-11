@@ -10,6 +10,7 @@ pipeline {
         COLLECTION    = 'tests/covid_api_postman_collection.json'
         ENVIRONMENT   = 'tests/covid_api_postman_variables.json' 
         REPORT_DIR    = 'newman-reports'
+        CI = "true"
     }
 
     stages {
@@ -21,10 +22,23 @@ pipeline {
             }
         }
 
+        stage('Install Dependencies') {
+            steps {
+                bat 'npm ci'
+            }
+        }
+
         stage('Install Newman') {
             steps {
                 // Local install avoids global PATH issues entirely
                 bat 'npm install newman newman-reporter-htmlextra'
+            }
+        }
+
+        stage('Install Playwright Browsers') {
+            steps {
+                // Local install avoids global PATH issues entirely
+                bat 'npx playwright install --with-deps'
             }
         }
 
@@ -59,11 +73,18 @@ pipeline {
                     npx newman run "${COLLECTION}" ^
                     -e "${ENVIRONMENT}" ^
                     --env-var base_url=${BASE_URL} ^
+                    --iteration-data tests/api/regions_data_v2.csv ^
                     --reporters cli,htmlextra,json ^
                     --reporter-htmlextra-export ${REPORT_DIR}/report.html ^
                     --reporter-json-export ${REPORT_DIR}/report.json ^
                     --timeout-request 15000
                 """
+            }
+        }
+
+        stage('UI Tests - Playwright') {
+            steps {
+                bat 'npx playwright test --reporter=html'
             }
         }
 
@@ -80,6 +101,16 @@ pipeline {
                 reportFiles          : 'report.html',
                 reportName           : 'Newman Test Report',
                 reportTitles         : 'API Test Results'
+            ])
+
+            // Playwright UI Test Report
+                publishHTML(target: [
+                reportName:            'Playwright Test Report',
+                reportDir:             'playwright-report',
+                reportFiles:           'index.html',
+                keepAll:               true,
+                alwaysLinkToLastBuild: true,
+                allowMissing:          false
             ])
         }
         success {
