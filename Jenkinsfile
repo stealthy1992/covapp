@@ -7,8 +7,8 @@ pipeline {
 
     environment {
         BASE_URL      = 'https://covapp-gamma.vercel.app'
-        COLLECTION    = 'tests/covid_api_postman_collection.json'
-        ENVIRONMENT   = 'tests/covid_api_postman_variables.json' 
+        COLLECTION    = 'tests/api/covid_api_postman_collection.json'
+        ENVIRONMENT   = 'tests/api/covid_api_postman_variables.json' 
         REPORT_DIR    = 'newman-reports'
         CI = "true"
     }
