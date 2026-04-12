@@ -113,6 +113,7 @@ test.describe('Functional Testing - Country Selection and Filters', () => {
       await page.getByRole('button', { name: 'View Stats' }).first().click();
 
       // Select date and check stats
+      await page.getByRole('textbox', { name: 'Date' }).waitFor({ state: 'visible' });
       await page.getByRole('textbox', { name: 'Date' }).fill('03/09/2023');
       // await page.getByRole('button', { name: 'Submit' }).click();
       await expect(page.getByText('Showing stats for')).toBeVisible();
@@ -139,6 +140,7 @@ test.describe('Functional Testing - Country Selection and Filters', () => {
     // Test province stats with invalid date if available
     if (await page.getByRole('button', { name: 'View Stats' }).first().isVisible()) {
       await page.getByRole('button', { name: 'View Stats' }).first().click();
+      await page.getByRole('textbox', { name: 'Date' }).waitFor({ state: 'visible' });
       await page.getByRole('textbox', { name: 'Date' }).fill('invalid-date');
       // await page.getByRole('button', { name: 'Submit' }).click();
       // Expect no crash or error message
@@ -211,6 +213,7 @@ test.describe('Functional Testing - Country Selection and Filters', () => {
       // Test multiple dates
       const dates = ['03/09/2023', '03/08/2023', '03/07/2023'];
       for (const date of dates) {
+        await page.getByRole('textbox', { name: 'Date' }).waitFor({ state: 'visible' });
         await page.getByRole('textbox', { name: 'Date' }).fill(date);
         // await page.getByRole('button', { name: 'Submit' }).click();
         await expect(page.getByText('Showing stats for')).toBeVisible();
