@@ -20,7 +20,7 @@ China,Chengdu,Sichuan,CN,2021-06-01
 China,Hangzhou,Zhejiang,CN,2021-09-01
 China,Wuhan,Hubei,CN,2021-12-01
 China,Nanjing,Jiangsu,CN,2022-03-01
-China,Xi'an,Shaanxi,CN,2022-06-01
+China,Dalian,Liaoning,CN,2022-06-01
 China,Chongqing,Chongqing,CN,2022-09-01
 China,Tianjin,Tianjin,CN,2022-12-01
 China,Suzhou,Jiangsu,CN,2023-03-01
@@ -38,38 +38,38 @@ India,Surat,Gujarat,IN,2022-09-01
 India,Lucknow,Uttar Pradesh,IN,2022-12-01
 India,Chandigarh,Punjab,IN,2023-03-01
 India,Kochi,Kerala,IN,2023-06-01
-Brazil,São Paulo,São Paulo,BR,2020-06-01
+Brazil,Manaus,Amazonas,BR,2020-06-01
 Brazil,Rio de Janeiro,Rio de Janeiro,BR,2020-09-01
-Brazil,Brasília,Federal District,BR,2020-12-01
-Brazil,Salvador,Bahia,BR,2021-03-01
-Brazil,Fortaleza,Ceará,BR,2021-06-01
+Brazil,Salvador,Bahia,BR,2020-12-01
+Brazil,Recife,Pernambuco,BR,2021-03-01
+Brazil,Fortaleza,Ceara,BR,2021-06-01
 Brazil,Belo Horizonte,Minas Gerais,BR,2021-09-01
-Brazil,Manaus,Amazonas,BR,2021-12-01
-Brazil,Curitiba,Paraná,BR,2022-03-01
-Brazil,Recife,Pernambuco,BR,2022-06-01
-Brazil,Porto Alegre,Rio Grande do Sul,BR,2022-09-01
-Brazil,Belém,Pará,BR,2022-12-01
-Brazil,Goiânia,Goiás,BR,2023-03-01
-Brazil,Florianópolis,Santa Catarina,BR,2023-06-01
-France,Paris,Île-de-France,FR,2020-06-01
-France,Marseille,Provence-Alpes-Côte d'Azur,FR,2020-09-01
-France,Lyon,Auvergne-Rhône-Alpes,FR,2020-12-01
+Brazil,Porto Alegre,Rio Grande do Sul,BR,2021-12-01
+Brazil,Curitiba,Parana,BR,2022-03-01
+Brazil,Natal,Rio Grande do Norte,BR,2022-06-01
+Brazil,Maceio,Alagoas,BR,2022-09-01
+Brazil,Campo Grande,Mato Grosso do Sul,BR,2022-12-01
+Brazil,Teresina,Piaui,BR,2023-03-01
+Brazil,Joinville,Santa Catarina,BR,2023-06-01
+France,Paris,Ile-de-France,FR,2020-06-01
+France,Marseille,Bouches-du-Rhone,FR,2020-09-01
+France,Lyon,Auvergne-Rhone-Alpes,FR,2020-12-01
 France,Toulouse,Occitanie,FR,2021-03-01
-France,Nice,Provence-Alpes-Côte d'Azur,FR,2021-06-01
+France,Bordeaux,Nouvelle-Aquitaine,FR,2021-06-01
 France,Nantes,Pays de la Loire,FR,2021-09-01
 France,Strasbourg,Grand Est,FR,2021-12-01
 France,Montpellier,Occitanie,FR,2022-03-01
-France,Bordeaux,Nouvelle-Aquitaine,FR,2022-06-01
+France,Rennes,Brittany,FR,2022-06-01
 France,Lille,Hauts-de-France,FR,2022-09-01
-France,Rennes,Brittany,FR,2022-12-01
-France,Grenoble,Auvergne-Rhône-Alpes,FR,2023-03-01
-France,Dijon,Bourgogne-Franche-Comté,FR,2023-06-01
+France,Le Havre,Normandy,FR,2022-12-01
+France,Reims,Grand Est,FR,2023-03-01
+France,Dijon,Bourgogne,FR,2023-06-01
 Germany,Berlin,Berlin,DE,2020-06-01
 Germany,Munich,Bavaria,DE,2020-09-01
 Germany,Hamburg,Hamburg,DE,2020-12-01
 Germany,Frankfurt,Hesse,DE,2021-06-01
 Germany,Cologne,North Rhine-Westphalia,DE,2022-03-01
-Germany,Stuttgart,Baden-Württemberg,DE,2023-06-01
+Germany,Dresden,Saxony,DE,2023-06-01
 Japan,Tokyo,Tokyo,JP,2020-06-01
 Japan,Osaka,Osaka,JP,2020-12-01
 Japan,Kyoto,Kyoto,JP,2021-06-01
