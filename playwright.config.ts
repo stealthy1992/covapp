@@ -15,6 +15,11 @@ const isCI = process.env.CI === "true";
  */
 
 export default defineConfig({
+
+  // Run tests in parallel across multiple workers
+  
+  /* Opt in  for parallel tests on CI. */
+  workers: isCI ? 4 : undefined,
   testDir: './tests/ui/specs',
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -24,8 +29,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  /* workers: process.env.CI ? 1 : undefined, */
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['list'],
