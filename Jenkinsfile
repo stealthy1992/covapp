@@ -65,10 +65,8 @@ pipeline {
 
         stage('Run Postman Collection (Newman)') {
             steps {
-                // Create report directory
+                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
                 bat "if not exist ${REPORT_DIR} mkdir ${REPORT_DIR}"
-
-                // Use npx so it finds the locally installed newman
                 bat """
                     npx newman run "${COLLECTION}" ^
                     -e "${ENVIRONMENT}" ^
@@ -79,14 +77,17 @@ pipeline {
                     --reporter-json-export ${REPORT_DIR}/report.json ^
                     --timeout-request 15000
                 """
+                }
             }
         }
 
         stage('UI Tests - Playwright') {
             steps {
+                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
                 bat 'npx playwright test --reporter=html'
+                }
             }
-        }
+         }
 
     
     }
