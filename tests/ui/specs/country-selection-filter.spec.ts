@@ -99,6 +99,7 @@ test.describe('Functional Testing - Country Selection and Filters', () => {
     await login(page);
 
     // Select India
+    await page.getByRole('textbox', { name: 'Country' }).waitFor({ state: 'visible' });
     await page.getByRole('button', { name: 'Country' }).click();
     await page.getByRole('option', { name: 'India' }).click();
     await page.getByRole('button', { name: 'Submit' }).click();
@@ -127,6 +128,7 @@ test.describe('Functional Testing - Country Selection and Filters', () => {
     await login(page);
 
     // Select Brazil
+    await page.getByRole('textbox', { name: 'Country' }).waitFor({ state: 'visible' });
     await page.getByRole('button', { name: 'Country' }).click();
     await page.getByRole('option', { name: 'Brazil' }).click();
     await page.getByRole('button', { name: 'Submit' }).click();
@@ -156,6 +158,7 @@ test.describe('Functional Testing - Country Selection and Filters', () => {
     await login(page);
 
     // Select Germany
+    await page.getByRole('textbox', { name: 'Country' }).waitFor({ state: 'visible' });
     await page.getByRole('button', { name: 'Country' }).click();
     await page.getByRole('option', { name: 'Germany' }).click();
     await page.getByRole('button', { name: 'Submit' }).click();
@@ -178,6 +181,7 @@ test.describe('Functional Testing - Country Selection and Filters', () => {
     await login(page);
 
     // Select France
+    await page.getByRole('textbox', { name: 'Country' }).waitFor({ state: 'visible' });
     await page.getByRole('button', { name: 'Country' }).click();
     await page.getByRole('option', { name: 'France' }).click();
     await page.getByRole('button', { name: 'Submit' }).click();
@@ -200,6 +204,7 @@ test.describe('Functional Testing - Country Selection and Filters', () => {
     await login(page);
 
     // Select Italy
+    await page.getByRole('textbox', { name: 'Country' }).waitFor({ state: 'visible' });
     await page.getByRole('button', { name: 'Country' }).click();
     await page.getByRole('option', { name: 'Italy' }).click();
     await page.getByRole('button', { name: 'Submit' }).click();
