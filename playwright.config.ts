@@ -1,5 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
+const isCI = process.env.CI === "true";
+
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -11,6 +13,7 @@ import { defineConfig, devices } from '@playwright/test';
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
+
 export default defineConfig({
   testDir: './tests/ui/specs',
   /* Run tests in files in parallel */
@@ -41,7 +44,7 @@ export default defineConfig({
   },
 
   // Tells Playwright to spin up your React dev server before running tests
-  webServer: {
+  webServer: isCI ? undefined :  {
     command: 'npm start',
     url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
