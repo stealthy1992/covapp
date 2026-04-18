@@ -10,8 +10,8 @@ US,Denver,Colorado,USA,2022-03-01
 US,Miami,Florida,USA,2022-06-01
 US,Austin,Texas,USA,2022-09-01
 US,Boston,Massachusetts,USA,2022-12-01
-US,Nashville,Tennessee,USA,2023-03-01
-US,Portland,Oregon,USA,2023-06-01
+US,Nashville,Tennessee,USA,2021-03-01
+US,Portland,Oregon,USA,2021-06-01
 China,Beijing,Beijing,CN,2020-06-01
 China,Shanghai,Shanghai,CN,2020-09-01
 China,Guangzhou,Guangdong,CN,2020-12-01
@@ -23,8 +23,8 @@ China,Nanjing,Jiangsu,CN,2022-03-01
 China,Dalian,Liaoning,CN,2022-06-01
 China,Chongqing,Chongqing,CN,2022-09-01
 China,Tianjin,Tianjin,CN,2022-12-01
-China,Suzhou,Jiangsu,CN,2023-03-01
-China,Qingdao,Shandong,CN,2023-06-01
+China,Suzhou,Jiangsu,CN,2021-03-01
+China,Qingdao,Shandong,CN,2021-06-01
 India,Mumbai,Maharashtra,IN,2020-06-01
 India,Delhi,Delhi,IN,2020-09-01
 India,Bangalore,Karnataka,IN,2020-12-01
@@ -36,8 +36,8 @@ India,Ahmedabad,Gujarat,IN,2022-03-01
 India,Jaipur,Rajasthan,IN,2022-06-01
 India,Surat,Gujarat,IN,2022-09-01
 India,Lucknow,Uttar Pradesh,IN,2022-12-01
-India,Chandigarh,Punjab,IN,2023-03-01
-India,Kochi,Kerala,IN,2023-06-01
+India,Chandigarh,Punjab,IN,2021-03-01
+India,Kochi,Kerala,IN,2021-06-01
 Brazil,Manaus,Amazonas,BR,2020-06-01
 Brazil,Rio de Janeiro,Rio de Janeiro,BR,2020-09-01
 Brazil,Salvador,Bahia,BR,2020-12-01
@@ -49,8 +49,8 @@ Brazil,Curitiba,Parana,BR,2022-03-01
 Brazil,Natal,Rio Grande do Norte,BR,2022-06-01
 Brazil,Maceio,Alagoas,BR,2022-09-01
 Brazil,Campo Grande,Mato Grosso do Sul,BR,2022-12-01
-Brazil,Teresina,Piaui,BR,2023-03-01
-Brazil,Joinville,Santa Catarina,BR,2023-06-01
+Brazil,Teresina,Piaui,BR,2021-03-01
+Brazil,Joinville,Santa Catarina,BR,2021-06-01
 France,Paris,Ile-de-France,FR,2020-06-01
 France,Marseille,Bouches-du-Rhone,FR,2020-09-01
 France,Lyon,Auvergne-Rhone-Alpes,FR,2020-12-01
@@ -62,29 +62,29 @@ France,Montpellier,Occitanie,FR,2022-03-01
 France,Rennes,Brittany,FR,2022-06-01
 France,Lille,Hauts-de-France,FR,2022-09-01
 France,Le Havre,Normandy,FR,2022-12-01
-France,Reims,Grand Est,FR,2023-03-01
-France,Dijon,Bourgogne,FR,2023-06-01
+France,Reims,Grand Est,FR,2021-03-01
+France,Dijon,Bourgogne,FR,2021-06-01
 Germany,Berlin,Berlin,DE,2020-06-01
 Germany,Munich,Bavaria,DE,2020-09-01
 Germany,Hamburg,Hamburg,DE,2020-12-01
 Germany,Frankfurt,Hesse,DE,2021-06-01
 Germany,Cologne,North Rhine-Westphalia,DE,2022-03-01
-Germany,Dresden,Saxony,DE,2023-06-01
+Germany,Dresden,Saxony,DE,2021-06-01
 Japan,Tokyo,Tokyo,JP,2020-06-01
 Japan,Osaka,Osaka,JP,2020-12-01
 Japan,Kyoto,Kyoto,JP,2021-06-01
 Japan,Hiroshima,Hiroshima,JP,2022-03-01
 Japan,Fukuoka,Fukuoka,JP,2022-09-01
-Japan,Nagoya,Aichi,JP,2023-06-01
+Japan,Nagoya,Aichi,JP,2021-06-01
 Australia,Sydney,New South Wales,AU,2020-06-01
 Australia,Melbourne,Victoria,AU,2021-03-01
 Australia,Brisbane,Queensland,AU,2021-12-01
 Australia,Perth,Western Australia,AU,2022-06-01
-Australia,Adelaide,South Australia,AU,2023-01-01
-Australia,Canberra,Australian Capital Territory,AU,2023-06-01
+Australia,Adelaide,South Australia,AU,2021-01-01
+Australia,Canberra,Australian Capital Territory,AU,2021-06-01
 Canada,Toronto,Ontario,CA,2020-09-01
 Canada,Vancouver,British Columbia,CA,2021-06-01
 Canada,Montreal,Quebec,CA,2022-03-01
 Canada,Calgary,Alberta,CA,2022-09-01
-Canada,Ottawa,Ontario,CA,2023-06-01
-Canada,Edmonton,Alberta,CA,2023-03-01
+Canada,Ottawa,Ontario,CA,2021-06-01
+Canada,Edmonton,Alberta,CA,2021-03-01
