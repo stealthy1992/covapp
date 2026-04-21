@@ -50,7 +50,7 @@ export const ProvinceStatsContextProvider = ({children}) => {
                 previousDeaths: deaths,
                 todayDeaths: deaths_diff,
                 todayRecovered: recovered_diff,
-                previousRecovered: recovered_diff
+                previousRecovered: recovered
 
             })
         
