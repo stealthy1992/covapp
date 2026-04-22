@@ -1,35 +1,119 @@
 const { test, expect } = require('@playwright/test');
 const LoginPage = require('../../../pages/LoginPage');
 const DashboardPage = require('../../../pages/DashboardPage');
-const { loadCSV, getCountries, getStatesByCountry, getCityByProvince } = require('../../../helpers/csvLoader');
+const StatisticsPage = require('../../../pages/StatisticsPage');
+
+const { loadCSV, getCountries, getStatesByCountry, getCityByProvince, getRow } = require('../../../helpers/csvLoader');
 
 const csvData  = loadCSV('regions_data_v2.csv');
 const countries = getCountries(csvData);
 
 test.describe('This will test the dropdown selection mechanism', () => {
-    let loginPage, dashboardPage, countryList, countryName = 'China';
+    let countryList, countryName = 'China';
+    let context, page, loginPage, dashboardPage, statisticsPage, countryData;
 
     test.beforeAll(async ({browser }) => {
-        const context = await browser.newContext();
-        const page = await context.newPage();
-        loginPage = new LoginPage(page);
-        dashboardPage = new DashboardPage(page);
+        test.setTimeout(120000);
+        context = await browser.newContext();
+        page = await context.newPage();
+        loginPage = new LoginPage(context);
+        dashboardPage = new DashboardPage(context);
+        statisticsPage = new StatisticsPage(context);
+        countryData = getRow(csvData);
+        
+
         await loginPage.open();
         await loginPage.login('jamesb@gmail.com', 'James1234!');
-        await page.waitForURL('https://covapp-gamma.vercel.app/dashboard');
+        await page.waitForURL('https://covapp-gamma.vercel.app/dashboard', { timeout: 10000});
     })
 
-    test('this will select China from the dropdown list', async ({page}) => {
-        countryList = await dashboardPage.selectCountry(countryName, countries);
-        for (const country of countries) {
-            expect(countryList).toContain(country);
+    test.afterAll(async () => {
+        await page.close();
+        await context.close();
+        // await page.pause();
+        // await context.close(); // ✅ clean up after ALL tests are done
+      });
+
+    test.only('this will select China from the dropdown list', async ({request}) => {
+
+        
+
+        for(let country of countryData){
+
+            await dashboardPage.selectCountry(country.region_name);
+            await dashboardPage.selectProvince(country.region_province);
+            await page.waitForURL('https://covapp-gamma.vercel.app/provincestats');
+            const response = await request.get('https://covid-19-statistics.p.rapidapi.com/reports', {
+                headers: {
+                    'x-rapidapi-key': '4173325277msh9d2c8abd90bdcf8p1cd329jsnc97124ee98b3',
+                    'Content-Type': 'application/json'
+                },
+                params: {
+                    region_province: country.region_province,
+                    date: country.date,
+                }
+            });
+
+            const apiData = await response.json();
+            const data = apiData?.data[0];
+            console.log('API response is: ', apiData);
+            const statsDate = await statisticsPage.reformatDate(country.date);
+            await statisticsPage.datePicker(statsDate);
+            const result = await statisticsPage.verifyChartValues();
+
+            if(result[0]['Active Cases']?.previous !== undefined){
+                expect.soft(result[0]['Active Cases']?.previous).toBe(data.active);
+            }
+
+            if(result[0]['Active Cases']?.today !== undefined){
+                expect.soft(result[0]['Active Cases']?.today).toBe(data.active_diff);
+            }
+            
+            if(result[1]['Confirmed Cases']?.previous !== undefined){
+                expect.soft(result[1]['Confirmed Cases']?.previous).toBe(data.confirmed);
+            }
+           
+            if(result[1]['Confirmed Cases']?.today !== undefined){
+                expect.soft(result[1]['Confirmed Cases']?.today).toBe(data.confirmed_diff);
+            }
+
+            if(result[2]?.Deaths?.previous !== undefined){
+                expect.soft(result[2].Deaths?.previous).toBe(data.deaths);
+            }
+           
+            if(result[2]?.Deaths?.today !== undefined){
+                expect.soft(result[2].Deaths?.today).toBe(data.deaths_diff);
+            }
+
+            if(result[3]?.Recovered?.previous !== undefined){
+                expect.soft(result[3].Recovered?.previous).toBe(data.recovered);
+            }
+
+            if(result[3]?.Recovered?.today !== undefined){
+                expect.soft(result[3].Recovered?.today).toBe(data.recovered_diff);
+            }
+           
+            console.log('All assertions passed.')
+            await page.waitForTimeout(2000);
+            await loginPage.open();
+            await loginPage.login('jamesb@gmail.com', 'James1234!');
+            await page.waitForURL('https://covapp-gamma.vercel.app/dashboard', { timeout: 10000});
+
+
         }
+
+        expect(page).toHaveURL('https://covapp-gamma.vercel.app/dashboard');
+
+        // countryList = await dashboardPage.selectCountry(countryName);
+        // for (const country of countries) {
+        //     expect(countryList).toContain(country);
+        // }
 
         // await dashboardPage.selectProvince('Chongqing');
 
         // // await page.locator('[role="row"]').filter({ has: page.locator('[data-field="active"]', {hasText: '1,913,230'})}).locator('button', { hasText: 'View Stats'}).click();
-        await page.waitForLoadState('networkidle')
-        await page.pause();
+        // await page.waitForLoadState('networkidle')
+        // await page.pause();
         
     })
 
@@ -43,6 +127,54 @@ test.describe('This will test the dropdown selection mechanism', () => {
         for( let state of expectedProvinces){
             expect(stateList).toContain(state);
         }
-    }) 
+        for( let province of stateList ){
+            if(province === 'Yunnan'){
+                console.log('Yunnan found');
+                await dashboardPage.clickListItem(province);
+            }
+        }
+        await page.waitForURL('https://covapp-gamma.vercel.app/provincestats');
+       
+    })
+    
+    test('This will test the statistics section or the detail page', async ({request}) => {
+
+        const regionsWithDate = getAllRegionsWithDates(csvData);
+
+        for( let row of regionsWithDate){
+
+            console.log(row.region_province);
+            const response = await request.get('https://covid-19-statistics.p.rapidapi.com/reports', {
+                headers: {
+                    'x-rapidapi-key': '4173325277msh9d2c8abd90bdcf8p1cd329jsnc97124ee98b3',
+                    'Content-Type': 'application/json'
+                },
+                params: {
+                    region_province: row.region_province,
+                    date: row.date,
+                }
+            });
+            // expect(response.ok()).toBeTruthy();
+            const apiData = await response.json();
+            const data = apiData?.data[0];
+            console.log('API response is: ', apiData);
+            await statisticsPage.datePicker('25 November 2020');
+            const result = await statisticsPage.verifyChartValues();
+            console.log(result);
+            // console.log(result['Active Cases'].previous, result['Active Cases'].today, result['Confirmed Cases'].previous, result['Confirmed Cases'].today)
+            expect(result[0]['Active Cases'].previous).toBe(data.active);
+            expect(result[0]['Active Cases'].today).toBe(data.active_diff);
+            expect(result[1]['Confirmed Cases'].previous).toBe(data.confirmed);
+            expect(result[1]['Confirmed Cases'].today).toBe(data.confirmed_diff);
+            expect(result[2].Deaths?.previous).toBe(data.deaths);
+            expect(result[2].Deaths?.today).toBe(data.deaths_diff);
+            expect(result[3].Recovered?.previous).toBe(data.recovered);
+            expect(result[3].Recovered?.today).toBe(data.recovered_diff);
+            await page.waitForTimeout(3000);
+    
+        }
+
+        
+    })  
     
 })

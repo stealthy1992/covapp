@@ -3,9 +3,9 @@ const BasePage = require('../pages/BasePage');
 
 class LoginPage extends BasePage{
 
-    constructor(page){
+    constructor(context){
 
-        super(page);
+        super(context);
 
         this.selectors = {
 

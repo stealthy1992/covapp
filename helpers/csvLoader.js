@@ -30,7 +30,15 @@ function getCityByProvince(data, region_province) {
   }
 
 function getRowByState(data, state) {
-  return data.find(row => row.state === state);
+  return data.find(row => row.region_province === state);
 }
 
-module.exports = { loadCSV, getCountries, getStatesByCountry, getRowByState, getCityByProvince };
+function getRow(data) {
+  return data.map(row => ({
+    region_name: row.region_name,
+    region_province: row.region_province,
+    date:            row.date
+  }));
+}
+
+module.exports = { loadCSV, getCountries, getStatesByCountry, getRowByState, getCityByProvince, getRow };

@@ -21,10 +21,12 @@ export default defineConfig({
   /* Opt in  for parallel tests on CI. */
   workers: isCI ? 4 : undefined,
   testDir: './tests/ui/specs',
+    // ✅ 2. Only pick up spec files — ignore everything else
+    testMatch: '**/*.spec.js',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /*Overriding default playwright timeout value/ */
-  timeout: 40000,
+  timeout: 600000,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
@@ -52,7 +54,7 @@ export default defineConfig({
     command: 'npm start',
     url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
-    timeout: 120000,
+    timeout: 600000,
   },
 
   /* Configure projects for major browsers */

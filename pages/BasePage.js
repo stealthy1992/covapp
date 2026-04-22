@@ -3,9 +3,13 @@ const { test, expect } = require('@playwright/test');
 
 class BasePage{
 
-    constructor(page){
+    constructor(context){
 
-        this.page = page;
+        this.context = context;
+    }
+
+    get page() {
+        return this.context.pages()[0];  // handy getter for convenience
     }
 
     async navigate(path){
@@ -45,7 +49,7 @@ class BasePage{
 
     }
 
-    async selectDropdownOption(selector, option, countries){
+    async selectDropdownOption(selector, option){
         
         await selector.click();
         await this.page.waitForSelector('[role="listbox"]', { state: 'visible' });
