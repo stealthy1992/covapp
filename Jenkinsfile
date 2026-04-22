@@ -78,6 +78,15 @@ pipeline {
             steps {
             
                 bat "if not exist ${REPORT_DIR} mkdir ${REPORT_DIR}"
+                script {
+                    System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", 
+                        "default-src 'self'; " +
+                        "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; " +
+                        "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; " +
+                        "img-src 'self' data:; " +
+                        "font-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com;"
+                    )
+                }
                 bat """
                     npx newman run "${COLLECTION}" ^
                     -e "${ENVIRONMENT}" ^

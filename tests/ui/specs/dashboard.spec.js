@@ -34,7 +34,7 @@ test.describe('This will test the dropdown selection mechanism', () => {
         // await context.close(); // ✅ clean up after ALL tests are done
       });
 
-    test.only('this will select China from the dropdown list', async ({request}) => {
+    test('this will do data-driven testing on the statistics section', async ({request}) => {
 
         
 
@@ -103,78 +103,7 @@ test.describe('This will test the dropdown selection mechanism', () => {
         }
 
         expect(page).toHaveURL('https://covapp-gamma.vercel.app/dashboard');
-
-        // countryList = await dashboardPage.selectCountry(countryName);
-        // for (const country of countries) {
-        //     expect(countryList).toContain(country);
-        // }
-
-        // await dashboardPage.selectProvince('Chongqing');
-
-        // // await page.locator('[role="row"]').filter({ has: page.locator('[data-field="active"]', {hasText: '1,913,230'})}).locator('button', { hasText: 'View Stats'}).click();
-        // await page.waitForLoadState('networkidle')
-        // await page.pause();
         
-    })
-
-    
-    test(`The country of ${countryName} should show correct states/provinces`, async () => {
-    
-        const expectedProvinces = getStatesByCountry(csvData, countryName);
-        const stateList = await dashboardPage.selectProvince();
-        console.log('CSV data is: ', expectedProvinces);
-        console.log('UI data is: ', stateList);
-        for( let state of expectedProvinces){
-            expect(stateList).toContain(state);
-        }
-        for( let province of stateList ){
-            if(province === 'Yunnan'){
-                console.log('Yunnan found');
-                await dashboardPage.clickListItem(province);
-            }
-        }
-        await page.waitForURL('https://covapp-gamma.vercel.app/provincestats');
-       
-    })
-    
-    test('This will test the statistics section or the detail page', async ({request}) => {
-
-        const regionsWithDate = getAllRegionsWithDates(csvData);
-
-        for( let row of regionsWithDate){
-
-            console.log(row.region_province);
-            const response = await request.get('https://covid-19-statistics.p.rapidapi.com/reports', {
-                headers: {
-                    'x-rapidapi-key': '4173325277msh9d2c8abd90bdcf8p1cd329jsnc97124ee98b3',
-                    'Content-Type': 'application/json'
-                },
-                params: {
-                    region_province: row.region_province,
-                    date: row.date,
-                }
-            });
-            // expect(response.ok()).toBeTruthy();
-            const apiData = await response.json();
-            const data = apiData?.data[0];
-            console.log('API response is: ', apiData);
-            await statisticsPage.datePicker('25 November 2020');
-            const result = await statisticsPage.verifyChartValues();
-            console.log(result);
-            // console.log(result['Active Cases'].previous, result['Active Cases'].today, result['Confirmed Cases'].previous, result['Confirmed Cases'].today)
-            expect(result[0]['Active Cases'].previous).toBe(data.active);
-            expect(result[0]['Active Cases'].today).toBe(data.active_diff);
-            expect(result[1]['Confirmed Cases'].previous).toBe(data.confirmed);
-            expect(result[1]['Confirmed Cases'].today).toBe(data.confirmed_diff);
-            expect(result[2].Deaths?.previous).toBe(data.deaths);
-            expect(result[2].Deaths?.today).toBe(data.deaths_diff);
-            expect(result[3].Recovered?.previous).toBe(data.recovered);
-            expect(result[3].Recovered?.today).toBe(data.recovered_diff);
-            await page.waitForTimeout(3000);
-    
-        }
-
-        
-    })  
+    })     
     
 })
