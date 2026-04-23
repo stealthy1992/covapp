@@ -9,7 +9,10 @@ class BasePage{
     }
 
     get page() {
-        return this.context.pages()[0];  // handy getter for convenience
+        if (typeof this.context.pages === 'function') {
+            return this.context.pages()[0];      // context is BrowserContext
+        }
+        return this.context;  
     }
 
     async navigate(path){
