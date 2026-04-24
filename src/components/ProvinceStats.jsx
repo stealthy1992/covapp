@@ -48,10 +48,14 @@ useEffect(() => {
 },[provinceStatsByDate])
 
 useEffect(() => {
-  setDate(new Date(value).toISOString().substring(0, 10))
+  if(value){
+    setDate(new Date(value).toISOString().substring(0, 10))
+  }
 },[value])
 
 useEffect(() => {
+  if (!date) return;                        // block empty string
+  if (date === '1970-01-01') return;        // block epoch fallback
   getResultByDate(location.state.province, date)
 },[date])
 
